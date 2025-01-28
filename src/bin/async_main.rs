@@ -38,7 +38,7 @@ async fn main(spawner: Spawner) {
         .into_async();
 
     info!("Embassy initialized!");
-#
+
     spawner.must_spawn(worker_task(i2c));
     loop {
         info!("Hello world!");
