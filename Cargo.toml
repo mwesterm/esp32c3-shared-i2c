@@ -1,0 +1,45 @@
+[package]
+edition = "2021"
+name = "esp32c3-display"
+version = "0.1.0"
+
+[[bin]]
+name = "esp32c3-display"
+path = "./src/bin/async_main.rs"
+
+[dependencies]
+critical-section = "1.2.0"
+embassy-executor = { version = "0.7.0", features = ["task-arena-size-20480"] }
+embassy-time = { version = "0.4.0", features = ["generic-queue-8"] }
+esp-alloc = { version = "0.6.0" }
+esp-backtrace = { version = "0.15.0", features = [
+  "esp32c3",
+  "exception-handler",
+  "panic-handler",
+  "println",
+] }
+esp-hal = { version = "0.23.1", features = ["esp32c3", "unstable"] }
+esp-hal-embassy = { version = "0.6.0", features = ["esp32c3"] }
+esp-println = { version = "0.13.0", features = ["esp32c3", "log"] }
+log = { version = "0.4.21" }
+static_cell = { version = "2.1.0", features = ["nightly"] }
+
+ssd1306 = { path = "../ssd1306", features = ["async"] }
+embedded-graphics = "0.8.1"
+
+ms5611 = { git = "https://github.com/mwesterm/ms5611-rs.git" }
+
+
+[profile.dev]
+# Rust debug is too slow.
+# For debug builds always builds with some optimization
+opt-level = "s"
+
+[profile.release]
+codegen-units = 1        # LLVM can perform better optimizations using a single thread
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false
