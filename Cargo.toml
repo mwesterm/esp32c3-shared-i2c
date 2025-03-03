@@ -4,17 +4,20 @@ name = "esp32c3-shared-i2c"
 version = "0.1.0"
 description = "Example for Shared I2C bus for multiple devices"
 authors = ["Martin Westermeier <mwesterm@mailbox.org>"]
+keywords = ["esp32c3", "embassy", "i2c", "ssd1306", "ms5611", "async"]
 
 [[bin]]
 name = "esp32c3-shared-i2c"
 path = "./src/bin/main.rs"
 
 [dependencies]
-#critical-section = "1.2.0"
 embassy-executor = { version = "0.7.0", features = ["task-arena-size-20480"] }
 embassy-time = { version = "0.4.0", features = ["generic-queue-8"] }
 embassy-sync = { version = "0.6.2" }
 embassy-embedded-hal = { version = "0.3.0", features = ["default"] }
+
+embedded-hal-bus = { version = "*", features = ["async"] }
+embedded-graphics = "0.8.1"
 
 esp-alloc = { version = "0.7.0" }
 esp-backtrace = { version = "0.15.1", features = [
@@ -23,20 +26,21 @@ esp-backtrace = { version = "0.15.1", features = [
   "panic-handler",
   "defmt",
 ] }
-defmt = "0.3.0"
 
 esp-hal = { version = "0.23.1", features = ["esp32c3", "unstable"] }
 esp-hal-embassy = { version = "0.6.0", features = ["esp32c3"] }
 esp-println = { version = "0.13.1", features = ["esp32c3", "defmt-espflash"] }
-static_cell = { version = "2.1.0", features = ["nightly"] }
 
-embedded-hal-bus = { version = "*", features = ["async"] }
+
 ssd1306 = { path = "../ssd1306", features = ["async"] }
-embedded-graphics = "0.8.1"
 
 ms5611-i2c = { path = "/home/mwesterm/Projects/esp/rust/ms5611/ms5611-i2c", features = [
   "is_async",
 ], default-features = false }
+
+defmt = "0.3.0"
+static_cell = { version = "2.1.0", features = ["nightly"] }
+
 
 [profile.dev]
 # Rust debug is too slow.
