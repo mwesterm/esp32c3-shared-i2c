@@ -114,10 +114,6 @@ async fn display_task(
     debug!("Display initialized!");
 
     let text_style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-    Text::with_baseline("Running!", Point::new(00, 0), text_style, Baseline::Bottom)
-        .draw(&mut display)
-        .unwrap();
-    let _ = display.flush().await;
 
     let mut output_string = String::new();
     let text_position_pressure = Point::new(0, 30);
@@ -149,8 +145,9 @@ async fn display_task(
         //If new counter value is available, update the display
         if let Ok(reading_counter) = reading_counter {
             output_string.clear();
-            write!(output_string, " Counter:{}", reading_counter).unwrap();
-            let metrics = text_style.measure_string("000", text_position_counter, Baseline::Bottom);
+            write!(output_string, " Counter:{:3}", reading_counter).unwrap();
+            let metrics =
+                text_style.measure_string(&output_string, text_position_counter, Baseline::Bottom);
             // Clear old text
             let _ = display.fill_solid(&metrics.bounding_box, BinaryColor::Off);
             // New text
