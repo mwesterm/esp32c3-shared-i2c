@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "esp32c3-shared-i2c"
-version = "0.1.1"
+version = "0.1.2"
 description = "Example for Shared I2C bus for multiple devices"
 authors = ["Martin Westermeier <mwesterm@mailbox.org>"]
 keywords = ["esp32c3", "embassy", "i2c", "ssd1306", "ms5611", "async"]
@@ -32,9 +32,9 @@ esp-hal-embassy = { version = "0.6.0", features = ["esp32c3"] }
 esp-println = { version = "0.13.1", features = ["esp32c3", "defmt-espflash"] }
 
 
-ssd1306 = { path = "../ssd1306", features = ["async"] }
+ssd1306 = { version = "*", features = ["async"] }
 
-ms5611-i2c = { path = "/home/mwesterm/Projects/esp/rust/ms5611/ms5611-i2c", features = [
+ms5611-i2c = { version = "*", features = [
   "is_async",
 ], default-features = false }
 
