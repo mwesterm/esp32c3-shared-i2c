@@ -16,6 +16,7 @@ embassy-time = { version = "0.4.0", features = ["generic-queue-8"] }
 embassy-sync = { version = "0.6.2" }
 embassy-embedded-hal = { version = "0.3.0", features = ["default"] }
 
+embedded-hal = { version = "1.0.0", features = ["defmt-03"] }
 embedded-hal-bus = { version = "*", features = ["async"] }
 embedded-graphics = "0.8.1"
 
@@ -32,7 +33,9 @@ esp-hal-embassy = { version = "0.6.0", features = ["esp32c3"] }
 esp-println = { version = "0.13.1", features = ["esp32c3", "defmt-espflash"] }
 
 
-ssd1306 = { version = "*", features = ["async"] }
+ssd1306 = { git = "https://github.com/rust-embedded-community/ssd1306.git", rev = "71aa641adb306d275b834a3bf11ca32ade085273", features = [
+  "async",
+] }
 
 ms5611-i2c = { version = "*", features = [
   "is_async",

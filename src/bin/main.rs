@@ -9,7 +9,8 @@
 /// # Arguments
 ///
 /// * `spawner` - The task spawner used to spawn async tasks.
-
+///
+///
 type I2cBus = Mutex<NoopRawMutex, I2c<'static, Async>>;
 extern crate alloc;
 
@@ -81,6 +82,7 @@ async fn main(spawner: Spawner) {
         c_receiver_pressure,
         c_receiver_counter,
     ));
+
     spawner.must_spawn(pressure_task(i2c_bus, c_sender_pressure));
     spawner.must_spawn(button_task(button, c_sender_counter));
     // Run forever and do nothing
@@ -102,7 +104,9 @@ async fn display_task(
     receiver_counter: Receiver<'static, NoopRawMutex, ReadingCounter, 3>,
 ) {
     debug!("Display_task created");
-    let i2c_dev: I2cDevice<'_, NoopRawMutex, I2c<'_, Async>> = I2cDevice::new(i2c_bus);
+
+    let i2c_dev: I2cDevice<'_, NoopRawMutex, I2c<'_, Async>> =
+        embassy_embedded_hal::shared_bus::asynch::i2c::I2cDevice::new(i2c_bus);
     let display_interface = ssd1306::I2CDisplayInterface::new(i2c_dev);
     let mut display = ssd1306::Ssd1306Async::new(
         display_interface,

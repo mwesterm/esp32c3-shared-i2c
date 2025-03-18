@@ -345,6 +345,9 @@ name = "embedded-hal"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "361a90feb7004eca4019fb28352a9465666b24f840f5c3cddf0ff13920590b89"
+dependencies = [
+ "defmt",
+]
 
 [[package]]
 name = "embedded-hal-async"
@@ -629,6 +632,7 @@ dependencies = [
  "embassy-sync",
  "embassy-time",
  "embedded-graphics",
+ "embedded-hal 1.0.0",
  "embedded-hal-bus",
  "esp-alloc",
  "esp-backtrace",
@@ -1069,8 +1073,7 @@ dependencies = [
 [[package]]
 name = "ssd1306"
 version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7ed51935bdc6e9e976d3d9a747e768589eaea0cf26f483213bfededc947c8624"
+source = "git+https://github.com/rust-embedded-community/ssd1306.git?rev=71aa641adb306d275b834a3bf11ca32ade085273#71aa641adb306d275b834a3bf11ca32ade085273"
 dependencies = [
  "display-interface",
  "display-interface-i2c",
